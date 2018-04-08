@@ -1,0 +1,74 @@
+﻿@model DBL.Task
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Task</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MTLID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MTLID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumberOfDone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumberOfDone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreationDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreationDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsDeleted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsDeleted)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Management.MTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Management.MTitle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.UFullName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.UFullName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.YearWeek.WTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.YearWeek.WTitle)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.TID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="2654c9e4e35f4f378e03b96084fbb245" Name="Diagram1">
+        <EntityTypeShape EntityType="KHBModel.Management" Width="1.5" PointX="0.75" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="KHBModel.ManagementsTasksLookup" Width="1.5" PointX="3" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="KHBModel.sysdiagram" Width="1.5" PointX="0.75" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="KHBModel.Task" Width="1.5" PointX="6" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="KHBModel.User" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KHBModel.YearWeek" Width="1.5" PointX="3.75" PointY="8" IsExpanded="true" />
+        <AssociationConnector Association="KHBModel.FK_ManagementsTasksLookup_Managements" ManuallyRouted="false" />
+        <AssociationConnector Association="KHBModel.FK_Tasks_Managements" ManuallyRouted="false" />
+        <AssociationConnector Association="KHBModel.FK_Tasks_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="KHBModel.FK_Tasks_YearWeeks" ManuallyRouted="false" />
+        <AssociationConnector Association="KHBModel.FK_Users_Managements" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

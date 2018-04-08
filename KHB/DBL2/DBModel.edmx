@@ -1,0 +1,618 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="KHBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Managements">
+          <Key>
+            <PropertyRef Name="MID" />
+          </Key>
+          <Property Name="MID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MTitle" Type="nvarchar" MaxLength="88" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ManagementsTasksLookup">
+          <Key>
+            <PropertyRef Name="MTLID" />
+          </Key>
+          <Property Name="MTLID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MID" Type="int" Nullable="false" />
+          <Property Name="MTLText" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tasks">
+          <Key>
+            <PropertyRef Name="TID" />
+          </Key>
+          <Property Name="TID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MID" Type="int" Nullable="false" />
+          <Property Name="UID" Type="int" Nullable="false" />
+          <Property Name="MTLID" Type="int" Nullable="false" />
+          <Property Name="WID" Type="int" Nullable="false" />
+          <Property Name="NumberOfDone" Type="int" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UID" />
+          </Key>
+          <Property Name="UID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UFullName" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="UEmail" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="UPassword" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="UMobile" Type="nchar" MaxLength="16" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="MUID" Type="int" Nullable="false" />
+          <Property Name="isAdmin" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="YearWeeks">
+          <Key>
+            <PropertyRef Name="WID" />
+          </Key>
+          <Property Name="WID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WTitle" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ManagementFields">
+          <Key>
+            <PropertyRef Name="MFID" />
+          </Key>
+          <Property Name="MFID" Type="int" Nullable="false" />
+          <Property Name="MID" Type="int" Nullable="false" />
+          <Property Name="FieldTitle" Type="text" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Managements1">
+          <Key>
+            <PropertyRef Name="MID" />
+          </Key>
+          <Property Name="MID" Type="int" Nullable="false" />
+          <Property Name="MTitle" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User_Has_Fields">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="UID" Type="int" Nullable="false" />
+          <Property Name="MFID" Type="int" Nullable="false" />
+          <Property Name="WeekNumber" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users1">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="MID" Type="int" Nullable="false" />
+          <Property Name="UserEmail" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="UserFullName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_ManagementsTasksLookup_Managements">
+          <End Role="Managements" Type="Self.Managements" Multiplicity="1" />
+          <End Role="ManagementsTasksLookup" Type="Self.ManagementsTasksLookup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Managements">
+              <PropertyRef Name="MID" />
+            </Principal>
+            <Dependent Role="ManagementsTasksLookup">
+              <PropertyRef Name="MID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tasks_Managements">
+          <End Role="Managements" Type="Self.Managements" Multiplicity="1" />
+          <End Role="Tasks" Type="Self.Tasks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Managements">
+              <PropertyRef Name="MID" />
+            </Principal>
+            <Dependent Role="Tasks">
+              <PropertyRef Name="MID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tasks_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Tasks" Type="Self.Tasks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UID" />
+            </Principal>
+            <Dependent Role="Tasks">
+              <PropertyRef Name="UID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tasks_YearWeeks">
+          <End Role="YearWeeks" Type="Self.YearWeeks" Multiplicity="1" />
+          <End Role="Tasks" Type="Self.Tasks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="YearWeeks">
+              <PropertyRef Name="WID" />
+            </Principal>
+            <Dependent Role="Tasks">
+              <PropertyRef Name="WID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Managements">
+          <End Role="Managements" Type="Self.Managements" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Managements">
+              <PropertyRef Name="MID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="MUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ManagementFields_fk0">
+          <End Role="Managements1" Type="Self.Managements1" Multiplicity="1" />
+          <End Role="ManagementFields" Type="Self.ManagementFields" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Managements1">
+              <PropertyRef Name="MID" />
+            </Principal>
+            <Dependent Role="ManagementFields">
+              <PropertyRef Name="MID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="User_Has_Fields_fk0">
+          <End Role="Users1" Type="Self.Users1" Multiplicity="1" />
+          <End Role="User_Has_Fields" Type="Self.User_Has_Fields" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users1">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="User_Has_Fields">
+              <PropertyRef Name="UID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Users_fk0">
+          <End Role="Managements1" Type="Self.Managements1" Multiplicity="1" />
+          <End Role="Users1" Type="Self.Users1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Managements1">
+              <PropertyRef Name="MID" />
+            </Principal>
+            <Dependent Role="Users1">
+              <PropertyRef Name="MID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="KHBModelStoreContainer">
+          <EntitySet Name="Managements" EntityType="Self.Managements" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ManagementsTasksLookup" EntityType="Self.ManagementsTasksLookup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tasks" EntityType="Self.Tasks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="YearWeeks" EntityType="Self.YearWeeks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ManagementFields" EntityType="Self.ManagementFields" Schema="KHBUSER" store:Type="Tables" />
+          <EntitySet Name="Managements1" EntityType="Self.Managements1" Schema="KHBUSER" Table="Managements" store:Type="Tables" />
+          <EntitySet Name="User_Has_Fields" EntityType="Self.User_Has_Fields" Schema="KHBUSER" store:Type="Tables" />
+          <EntitySet Name="Users1" EntityType="Self.Users1" Schema="KHBUSER" Table="Users" store:Type="Tables" />
+          <AssociationSet Name="FK_ManagementsTasksLookup_Managements" Association="Self.FK_ManagementsTasksLookup_Managements">
+            <End Role="Managements" EntitySet="Managements" />
+            <End Role="ManagementsTasksLookup" EntitySet="ManagementsTasksLookup" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tasks_Managements" Association="Self.FK_Tasks_Managements">
+            <End Role="Managements" EntitySet="Managements" />
+            <End Role="Tasks" EntitySet="Tasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tasks_Users" Association="Self.FK_Tasks_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Tasks" EntitySet="Tasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tasks_YearWeeks" Association="Self.FK_Tasks_YearWeeks">
+            <End Role="YearWeeks" EntitySet="YearWeeks" />
+            <End Role="Tasks" EntitySet="Tasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Managements" Association="Self.FK_Users_Managements">
+            <End Role="Managements" EntitySet="Managements" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="ManagementFields_fk0" Association="Self.ManagementFields_fk0">
+            <End Role="Managements1" EntitySet="Managements1" />
+            <End Role="ManagementFields" EntitySet="ManagementFields" />
+          </AssociationSet>
+          <AssociationSet Name="User_Has_Fields_fk0" Association="Self.User_Has_Fields_fk0">
+            <End Role="Users1" EntitySet="Users1" />
+            <End Role="User_Has_Fields" EntitySet="User_Has_Fields" />
+          </AssociationSet>
+          <AssociationSet Name="Users_fk0" Association="Self.Users_fk0">
+            <End Role="Managements1" EntitySet="Managements1" />
+            <End Role="Users1" EntitySet="Users1" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="KHBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Management">
+          <Key>
+            <PropertyRef Name="MID" />
+          </Key>
+          <Property Name="MID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MTitle" Type="String" MaxLength="88" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="ManagementsTasksLookups" Relationship="Self.FK_ManagementsTasksLookup_Managements" FromRole="Managements" ToRole="ManagementsTasksLookup" />
+          <NavigationProperty Name="Tasks" Relationship="Self.FK_Tasks_Managements" FromRole="Managements" ToRole="Tasks" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Users_Managements" FromRole="Managements" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="ManagementsTasksLookup">
+          <Key>
+            <PropertyRef Name="MTLID" />
+          </Key>
+          <Property Name="MTLID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MID" Type="Int32" Nullable="false" />
+          <Property Name="MTLText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Management" Relationship="Self.FK_ManagementsTasksLookup_Managements" FromRole="ManagementsTasksLookup" ToRole="Managements" />
+        </EntityType>
+        <EntityType Name="Task">
+          <Key>
+            <PropertyRef Name="TID" />
+          </Key>
+          <Property Name="TID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MID" Type="Int32" Nullable="false" />
+          <Property Name="UID" Type="Int32" Nullable="false" />
+          <Property Name="MTLID" Type="Int32" Nullable="false" />
+          <Property Name="WID" Type="Int32" Nullable="false" />
+          <Property Name="NumberOfDone" Type="Int32" Nullable="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Management" Relationship="Self.FK_Tasks_Managements" FromRole="Tasks" ToRole="Managements" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Tasks_Users" FromRole="Tasks" ToRole="Users" />
+          <NavigationProperty Name="YearWeek" Relationship="Self.FK_Tasks_YearWeeks" FromRole="Tasks" ToRole="YearWeeks" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UID" />
+          </Key>
+          <Property Name="UID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UFullName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UPassword" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UMobile" Type="String" MaxLength="16" FixedLength="true" Unicode="true" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="MUID" Type="Int32" Nullable="false" />
+          <Property Name="isAdmin" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Management" Relationship="Self.FK_Users_Managements" FromRole="Users" ToRole="Managements" />
+          <NavigationProperty Name="Tasks" Relationship="Self.FK_Tasks_Users" FromRole="Users" ToRole="Tasks" />
+        </EntityType>
+        <EntityType Name="YearWeek">
+          <Key>
+            <PropertyRef Name="WID" />
+          </Key>
+          <Property Name="WID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WTitle" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Tasks" Relationship="Self.FK_Tasks_YearWeeks" FromRole="YearWeeks" ToRole="Tasks" />
+        </EntityType>
+        <EntityType Name="ManagementField">
+          <Key>
+            <PropertyRef Name="MFID" />
+          </Key>
+          <Property Name="MFID" Type="Int32" Nullable="false" />
+          <Property Name="MID" Type="Int32" Nullable="false" />
+          <Property Name="FieldTitle" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Managements1" Relationship="Self.ManagementFields_fk0" FromRole="ManagementFields" ToRole="Managements1" />
+        </EntityType>
+        <EntityType Name="Managements1">
+          <Key>
+            <PropertyRef Name="MID" />
+          </Key>
+          <Property Name="MID" Type="Int32" Nullable="false" />
+          <Property Name="MTitle" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="ManagementFields" Relationship="Self.ManagementFields_fk0" FromRole="Managements1" ToRole="ManagementFields" />
+          <NavigationProperty Name="Users1" Relationship="Self.Users_fk0" FromRole="Managements1" ToRole="Users1" />
+        </EntityType>
+        <EntityType Name="User_Has_Fields">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="UID" Type="Int32" Nullable="false" />
+          <Property Name="MFID" Type="Int32" Nullable="false" />
+          <Property Name="WeekNumber" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Users1" Relationship="Self.User_Has_Fields_fk0" FromRole="User_Has_Fields" ToRole="Users1" />
+        </EntityType>
+        <EntityType Name="Users1">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="MID" Type="Int32" Nullable="false" />
+          <Property Name="UserEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserFullName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Managements1" Relationship="Self.Users_fk0" FromRole="Users1" ToRole="Managements1" />
+          <NavigationProperty Name="User_Has_Fields" Relationship="Self.User_Has_Fields_fk0" FromRole="Users1" ToRole="User_Has_Fields" />
+        </EntityType>
+        <Association Name="FK_ManagementsTasksLookup_Managements">
+          <End Role="Managements" Type="Self.Management" Multiplicity="1" />
+          <End Role="ManagementsTasksLookup" Type="Self.ManagementsTasksLookup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Managements">
+              <PropertyRef Name="MID" />
+            </Principal>
+            <Dependent Role="ManagementsTasksLookup">
+              <PropertyRef Name="MID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tasks_Managements">
+          <End Role="Managements" Type="Self.Management" Multiplicity="1" />
+          <End Role="Tasks" Type="Self.Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Managements">
+              <PropertyRef Name="MID" />
+            </Principal>
+            <Dependent Role="Tasks">
+              <PropertyRef Name="MID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Managements">
+          <End Role="Managements" Type="Self.Management" Multiplicity="1" />
+          <End Role="Users" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Managements">
+              <PropertyRef Name="MID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="MUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tasks_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Tasks" Type="Self.Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UID" />
+            </Principal>
+            <Dependent Role="Tasks">
+              <PropertyRef Name="UID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tasks_YearWeeks">
+          <End Role="YearWeeks" Type="Self.YearWeek" Multiplicity="1" />
+          <End Role="Tasks" Type="Self.Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="YearWeeks">
+              <PropertyRef Name="WID" />
+            </Principal>
+            <Dependent Role="Tasks">
+              <PropertyRef Name="WID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ManagementFields_fk0">
+          <End Role="Managements1" Type="Self.Managements1" Multiplicity="1" />
+          <End Role="ManagementFields" Type="Self.ManagementField" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Managements1">
+              <PropertyRef Name="MID" />
+            </Principal>
+            <Dependent Role="ManagementFields">
+              <PropertyRef Name="MID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Users_fk0">
+          <End Role="Managements1" Type="Self.Managements1" Multiplicity="1" />
+          <End Role="Users1" Type="Self.Users1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Managements1">
+              <PropertyRef Name="MID" />
+            </Principal>
+            <Dependent Role="Users1">
+              <PropertyRef Name="MID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="User_Has_Fields_fk0">
+          <End Role="Users1" Type="Self.Users1" Multiplicity="1" />
+          <End Role="User_Has_Fields" Type="Self.User_Has_Fields" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users1">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="User_Has_Fields">
+              <PropertyRef Name="UID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="KHBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Managements" EntityType="Self.Management" />
+          <EntitySet Name="ManagementsTasksLookups" EntityType="Self.ManagementsTasksLookup" />
+          <EntitySet Name="Tasks" EntityType="Self.Task" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="YearWeeks" EntityType="Self.YearWeek" />
+          <EntitySet Name="ManagementFields" EntityType="Self.ManagementField" />
+          <EntitySet Name="Managements1" EntityType="Self.Managements1" />
+          <EntitySet Name="User_Has_Fields" EntityType="Self.User_Has_Fields" />
+          <EntitySet Name="Users1" EntityType="Self.Users1" />
+          <AssociationSet Name="FK_ManagementsTasksLookup_Managements" Association="Self.FK_ManagementsTasksLookup_Managements">
+            <End Role="Managements" EntitySet="Managements" />
+            <End Role="ManagementsTasksLookup" EntitySet="ManagementsTasksLookups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tasks_Managements" Association="Self.FK_Tasks_Managements">
+            <End Role="Managements" EntitySet="Managements" />
+            <End Role="Tasks" EntitySet="Tasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Managements" Association="Self.FK_Users_Managements">
+            <End Role="Managements" EntitySet="Managements" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tasks_Users" Association="Self.FK_Tasks_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Tasks" EntitySet="Tasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tasks_YearWeeks" Association="Self.FK_Tasks_YearWeeks">
+            <End Role="YearWeeks" EntitySet="YearWeeks" />
+            <End Role="Tasks" EntitySet="Tasks" />
+          </AssociationSet>
+          <AssociationSet Name="ManagementFields_fk0" Association="Self.ManagementFields_fk0">
+            <End Role="Managements1" EntitySet="Managements1" />
+            <End Role="ManagementFields" EntitySet="ManagementFields" />
+          </AssociationSet>
+          <AssociationSet Name="Users_fk0" Association="Self.Users_fk0">
+            <End Role="Managements1" EntitySet="Managements1" />
+            <End Role="Users1" EntitySet="Users1" />
+          </AssociationSet>
+          <AssociationSet Name="User_Has_Fields_fk0" Association="Self.User_Has_Fields_fk0">
+            <End Role="Users1" EntitySet="Users1" />
+            <End Role="User_Has_Fields" EntitySet="User_Has_Fields" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="KHBModelStoreContainer" CdmEntityContainer="KHBEntities">
+          <EntitySetMapping Name="Managements">
+            <EntityTypeMapping TypeName="KHBModel.Management">
+              <MappingFragment StoreEntitySet="Managements">
+                <ScalarProperty Name="MID" ColumnName="MID" />
+                <ScalarProperty Name="MTitle" ColumnName="MTitle" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ManagementsTasksLookups">
+            <EntityTypeMapping TypeName="KHBModel.ManagementsTasksLookup">
+              <MappingFragment StoreEntitySet="ManagementsTasksLookup">
+                <ScalarProperty Name="MTLID" ColumnName="MTLID" />
+                <ScalarProperty Name="MID" ColumnName="MID" />
+                <ScalarProperty Name="MTLText" ColumnName="MTLText" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tasks">
+            <EntityTypeMapping TypeName="KHBModel.Task">
+              <MappingFragment StoreEntitySet="Tasks">
+                <ScalarProperty Name="TID" ColumnName="TID" />
+                <ScalarProperty Name="MID" ColumnName="MID" />
+                <ScalarProperty Name="UID" ColumnName="UID" />
+                <ScalarProperty Name="MTLID" ColumnName="MTLID" />
+                <ScalarProperty Name="WID" ColumnName="WID" />
+                <ScalarProperty Name="NumberOfDone" ColumnName="NumberOfDone" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="KHBModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UID" ColumnName="UID" />
+                <ScalarProperty Name="UFullName" ColumnName="UFullName" />
+                <ScalarProperty Name="UEmail" ColumnName="UEmail" />
+                <ScalarProperty Name="UPassword" ColumnName="UPassword" />
+                <ScalarProperty Name="UMobile" ColumnName="UMobile" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="MUID" ColumnName="MUID" />
+                <ScalarProperty Name="isAdmin" ColumnName="isAdmin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="YearWeeks">
+            <EntityTypeMapping TypeName="KHBModel.YearWeek">
+              <MappingFragment StoreEntitySet="YearWeeks">
+                <ScalarProperty Name="WID" ColumnName="WID" />
+                <ScalarProperty Name="WTitle" ColumnName="WTitle" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ManagementFields">
+            <EntityTypeMapping TypeName="KHBModel.ManagementField">
+              <MappingFragment StoreEntitySet="ManagementFields">
+                <ScalarProperty Name="MFID" ColumnName="MFID" />
+                <ScalarProperty Name="MID" ColumnName="MID" />
+                <ScalarProperty Name="FieldTitle" ColumnName="FieldTitle" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Managements1">
+            <EntityTypeMapping TypeName="KHBModel.Managements1">
+              <MappingFragment StoreEntitySet="Managements1">
+                <ScalarProperty Name="MID" ColumnName="MID" />
+                <ScalarProperty Name="MTitle" ColumnName="MTitle" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User_Has_Fields">
+            <EntityTypeMapping TypeName="KHBModel.User_Has_Fields">
+              <MappingFragment StoreEntitySet="User_Has_Fields">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UID" ColumnName="UID" />
+                <ScalarProperty Name="MFID" ColumnName="MFID" />
+                <ScalarProperty Name="WeekNumber" ColumnName="WeekNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users1">
+            <EntityTypeMapping TypeName="KHBModel.Users1">
+              <MappingFragment StoreEntitySet="Users1">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="MID" ColumnName="MID" />
+                <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
+                <ScalarProperty Name="UserFullName" ColumnName="UserFullName" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,10 @@
+c:\Users\Ahmed\documents\visual studio 2015\Projects\KHB\DBL\bin\Debug\DBL.dll.config
+c:\Users\Ahmed\documents\visual studio 2015\Projects\KHB\DBL\bin\Debug\DBL.dll
+c:\Users\Ahmed\documents\visual studio 2015\Projects\KHB\DBL\bin\Debug\DBL.pdb
+c:\Users\Ahmed\documents\visual studio 2015\Projects\KHB\DBL\bin\Debug\EntityFramework.dll
+c:\Users\Ahmed\documents\visual studio 2015\Projects\KHB\DBL\bin\Debug\EntityFramework.SqlServer.dll
+c:\Users\Ahmed\documents\visual studio 2015\Projects\KHB\DBL\bin\Debug\EntityFramework.xml
+c:\Users\Ahmed\documents\visual studio 2015\Projects\KHB\DBL\bin\Debug\EntityFramework.SqlServer.xml
+c:\Users\Ahmed\documents\visual studio 2015\Projects\KHB\DBL\obj\Debug\DBL.dll
+c:\Users\Ahmed\documents\visual studio 2015\Projects\KHB\DBL\obj\Debug\DBL.pdb
+c:\Users\Ahmed\documents\visual studio 2015\Projects\KHB\DBL\obj\Debug\DBL.csprojResolveAssemblyReference.cache

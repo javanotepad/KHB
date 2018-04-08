@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/bootsrtap-rtl.css" rel="stylesheet" />
+    <style>
+        .logo {
+            max-height: 200px;
+            max-width: 200px;
+        }
+        .maragedList{
+            margin-top:25px;
+        }
+    </style>
+</head>
+
+<body dir="rtl">
+
+    <div dir="rtl" class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+           
+            <div class="navbar-header">
+                <div class="navbar-brand">
+                    <img class="logo" src="~/Content/images/Logo_ar.png" />
+                </div>
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="navbar-collapse collapse maragedList" >
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("الأعضاء", "Index", "Users")</li>
+                    <li>@Html.ActionLink("الإدارات", "Index", "Managements")</li>
+                    <li>@Html.ActionLink("الأسابيع", "Index", "YearWeeks")</li>
+                    
+                    <li>@Html.ActionLink("المهام", "Index", "Tasks")</li>
+                    <li>@Html.ActionLink("مهام الإدارات", "Index", "ManagementsTasksLookups")</li>
+                </ul>
+                @*@Html.Partial("_LoginPartial")*@
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="container body-content">
+            <br /><br />
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            </footer>
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

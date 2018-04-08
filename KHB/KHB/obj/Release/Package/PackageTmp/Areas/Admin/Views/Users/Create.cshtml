@@ -1,0 +1,84 @@
+﻿@model DBL.User
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>User</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.Label("الاسم الكامل", htmlAttributes: new { @class = "control-label col-md-2", @type = "text" , @required = "1" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.UFullName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.UFullName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="control-label col-md-2">
+                            <label>الادارة التابع لها</label>
+                </div>
+            <div class="col-md-10">
+                @{ 
+                    var list = (List<DBL.Management>)ViewBag.Managements;
+                    if (list.Any())
+                    {
+                        <select name="MUID" class="form-control">
+                            @foreach(var item in list)
+                            {
+                                <option value="@item.MID">@item.MTitle</option>
+                            }
+                        </select>
+                    }
+                }
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("البريد الالكتروني", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.UEmail, new { htmlAttributes = new { @class = "form-control" , @type="email" ,@required="1" } })
+                @Html.ValidationMessageFor(model => model.UEmail, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("كلمة المرور", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="password" class="form-control" name="UPassword" required />
+                @Html.ValidationMessageFor(model => model.UPassword, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("الجوال", htmlAttributes: new { @class = "control-label col-md-2", @type = "tel" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.UMobile, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.UMobile, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="حفظ" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

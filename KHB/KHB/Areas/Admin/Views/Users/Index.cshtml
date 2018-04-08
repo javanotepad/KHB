@@ -1,0 +1,59 @@
+﻿@model IEnumerable<DBL.User>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UFullName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UEmail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Management.MTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UMobile)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreationDate)
+        </th>
+       
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.UFullName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UEmail)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Management.MTitle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UMobile)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreationDate)
+        </td>
+       
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.UID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.UID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.UID })
+        </td>
+    </tr>
+}
+
+</table>

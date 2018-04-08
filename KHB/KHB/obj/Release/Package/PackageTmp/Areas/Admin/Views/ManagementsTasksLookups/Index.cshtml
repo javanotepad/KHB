@@ -1,0 +1,47 @@
+﻿@model IEnumerable<DBL.ManagementsTasksLookup>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MTLText)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreationDate)
+        </th>
+      
+        <th>
+            @Html.DisplayNameFor(model => model.Management.MTitle)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.MTLText)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreationDate)
+        </td>
+       
+        <td>
+            @Html.DisplayFor(modelItem => item.Management.MTitle)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.MTLID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.MTLID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.MTLID })
+        </td>
+    </tr>
+}
+
+</table>
